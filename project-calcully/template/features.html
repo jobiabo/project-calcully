@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcully - Features</title>
+    <style>
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* Consistent light gradient background */
+            background: linear-gradient(180deg, #eef4f8 0%, #dbeafe 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: #1e293b;
+            padding: 30px 20px;
+            position: relative;
+        }
+
+        /* Seamless Math Formula Background Layer */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            mix-blend-mode: overlay; 
+            opacity: 0.12; 
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Features Container Card */
+        .features-card {
+            position: relative;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            max-width: 600px;
+            width: 100%;
+            padding: 35px 25px;
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
+            animation: fadeIn 0.5s ease-out;
+            text-align: center;
+        }
+
+        /* Navigation Top Link */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #1d4ed8;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            transition: transform 0.2s ease;
+        }
+
+        .back-link:hover {
+            transform: translateX(-3px);
+        }
+
+        /* Typography */
+        .title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #0f4c81;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: #475569;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        /* Features Grid Layout */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 35px;
+            text-align: left;
+        }
+
+        /* Responsive tweak for small mobile displays */
+        @media (max-width: 480px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .feature-item {
+            background: rgba(255, 255, 255, 0.6);
+            padding: 16px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            display: flex;
+            gap: 12px;
+            align-items: start;
+            transition: transform 0.2s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-2px);
+            background: #ffffff;
+            border-color: #cbd5e1;
+        }
+
+        .check-icon {
+            color: #10b981; /* Premium Emerald Green for checkmarks */
+            font-size: 1.2rem;
+            font-weight: bold;
+            line-height: 1;
+            margin-top: 2px;
+        }
+
+        .feature-text h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 4px;
+        }
+
+        .feature-text p {
+            font-size: 0.88rem;
+            color: #475569;
+            line-height: 1.4;
+        }
+
+        /* Return Action Button */
+        .btn-home {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            font-size: 1.05rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 14px;
+            box-shadow: 0 4px 15px rgba(29, 78, 216, 0.2);
+            transition: all 0.2s ease;
+        }
+
+        .btn-home:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(29, 78, 216, 0.3);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="features-card">
+        <!-- Back Link -->
+        <a href="home" class="back-link">← Back to Menu</a>
+
+        <!-- Header -->
+        <h1 class="title">Features</h1>
+        <p class="subtitle">Discover what makes Calcully powerful, smart, and reliable.</p>
+
+        <!-- Dynamic Grid Showcase -->
+        <div class="features-grid">
+
+            <!-- Item 1 -->
+            <div class="feature-item">
+                <span class="check-icon">✓</span>
+                <div class="feature-text">
+                    <h3>Basic Arithmetic</h3>
+                    <p>Effortlessly execute addition, subtraction, multiplication, and division.</p>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="feature-item">
+                <span class="check-icon">✓</span>
+                <div class="feature-text">
+                    <h3>Scientific Functions</h3>
+                    <p>Access trigonometry, square roots, logs, and advanced equations.</p>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="feature-item">
+                <span class="check-icon">✓</span>
+                <div class="feature-text">
+                    <h3>Expression Editing</h3>
+                    <p>Use smooth navigation keys to correct and refine formula entries easily.</p>
+                </div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="feature-item">
+                <span class="check-icon">✓</span>
+                <div class="feature-text">
+                    <h3>Error Detection</h3>
+                    <p>Smart validation flags syntax mistakes before running calculation tasks.</p>
+                </div>
+            </div>
+
+            <!-- Item 5 -->
+            <div class="feature-item">
+                <span class="check-icon">✓</span>
+                <div class="feature-text">
+                    <h3>Fast Calculations</h3>
+                    <p>Get localized mathematical outputs instantly without lag or processing delays.</p>
+                </div>
+            </div>
+
+            <!-- Item 6 -->
+            <div class="feature-item">
+                <span class="check-icon">✓</span>
+                <div class="feature-text">
+                    <h3>Lightweight Design</h3>
+                    <p>Optimized architecture uses minimal storage resources and memory load.</p>
+                </div>
+            </div>
+
+            <!-- Item 7 -->
+            <div class="feature-item">
+                <span class="check-icon">✓</span>
+                <div class="feature-text">
+                    <h3>Offline Support</h3>
+                    <p>Run mathematical operations seamlessly anytime, completely disconnected from the internet.</p>
+                </div>
+            </div>
+
+            <!-- Item 8 -->
+            <div class="feature-item">
+                <span class="check-icon">✓</span>
+                <div class="feature-text">
+                    <h3>Mobile Installable</h3>
+                    <p>Add to your mobile home screen directly for a fast native app experience.</p>
+                </div>
+            </div>
+
+            <!-- Item 9 -->
+            <div class="feature-item" style="grid-column: span 1;">
+                <span class="check-icon">✓</span>
+                <div class="feature-text">
+                    <h3>Built with Go</h3>
+                    <p>Powered by Go backend speeds to maximize processing compilation efficiencies.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Back to Main Button -->
+        <a href="home" class="btn-home">Back to Menu</Main></a>
+    </div>
+
+</body>
+</html>

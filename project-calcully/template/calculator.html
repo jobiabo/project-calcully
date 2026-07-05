@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CalcX Calculator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 20px 0;
+            background-color: #f0f2f5;
+        }
+
+        .calculator-container {
+            width: 360px;
+            background: #ffffff;
+            border: 3px solid #1a1a1a;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .brand-name {
+            text-align: center;
+            font-size: 50px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 800;
+            color: #555;
+            position: relative;
+        }
+
+        /* Shift indicator on housing */
+        .shift-indicator {
+            position: absolute;
+            top: 5px;
+            left: 10px;
+            font-size: 0.75rem;
+            background: #f39c12;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: sans-serif;
+            font-weight: bold;
+            display: none;
+        }
+
+        .calculator-display {
+            border: 2px solid #222;
+            border-radius: 8px;
+            background-color: #cbd5d0; /* Default dimmed state */
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 120px;
+            transition: background-color 0.2s ease;
+            overflow: auto;
+            
+        }
+
+        /* Active power state screen colors */
+        .calculator-display.power-on {
+            background-color: #e2ebe9;
+        }
+
+        .calculator-display .expression {
+            font-size: 1.1rem;
+            color: #555;
+            text-align: left; /* Switched to left for natural cursor layout */
+            word-break: break-all;
+            min-height: 1.2rem;
+            white-space: pre-wrap;
+        }
+
+        /* The Blinking Cursor */
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.2rem;
+            background-color: #111;
+            margin-left: 1px;
+            vertical-align: middle;
+            animation: blink 0.8s infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .calculator-display .result {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #111;
+            text-align: right;
+            opacity: 0; /* Hidden when off */
+        }
+
+        .calculator-display.power-on .result {
+            opacity: 1;
+        }
+
+        form { width: 100%; }
+
+        .calculator-keypad {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn {
+            padding: 15px 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: 1px solid #b0b0b0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.15s ease, transform 0.05s ease;
+        }
+
+        .btn:active { transform: scale(0.97); }
+
+        .num { background-color: #ffffff; color: #333333; }
+        .num:hover { background-color: #f7f7f7; }
+
+        .func { background-color: #7f8c8d; color: #ffffff; font-size: 0.95rem; }
+        .func:hover { background-color: #6c7a7b; }
+        
+        /* Highlight shifted key state */
+        .func.shift-active { background-color: #e67e22; }
+
+        .op { background-color: #3498db; color: #ffffff; }
+        .op:hover { background-color: #2980b9; }
+
+        .clear-btn { background-color: #e74c3c; color: white; }
+        .clear-btn:hover { background-color: #c0392b; }
+
+        .plus-btn { grid-column: span 3; padding: 18px; font-size: 1.4rem; }
+
+        .navigation-pad {
+            grid-column: span 2;
+            grid-row: span 2;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 4px;
+            background: #eaeded;
+            border-radius: 50%;
+            padding: 6px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .navigation-pad button {
+            background-color: #5d6d7e;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.15s ease;
+        }
+
+        .navigation-pad button:hover { background-color: #4b5866; }
+
+        .navigation-pad button:nth-child(1) { grid-column: 2; grid-row: 1; }
+        .navigation-pad button:nth-child(2) { grid-column: 1; grid-row: 2; }
+        .navigation-pad button:nth-child(3) { grid-column: 2; grid-row: 2; background-color: #47525e; }
+        .navigation-pad button:nth-child(4) { grid-column: 3; grid-row: 2; }
+        .navigation-pad button:nth-child(5) { grid-column: 2; grid-row: 3; }
+    </style>
+</head>
+<body>
+
+    <div class="calculator-container">
+        <div class="brand-name">
+            <span class="shift-indicator" id="shift-label">SHIFT</span>
+            CalcX
+        </div>
+
+        <form method="POST" action="/calculator" id="calc-form">
+            <input type="hidden" name="expression" id="hidden-expression">
+
+            <div class="calculator-display power-on" id="display-window">
+                <div class="expression" id="expression-display"></div>
+                <div class="result" id="result-display">{{.Result}}</div>
+            </div>
+
+            <div class="calculator-keypad">
+
+                <button type="button" class="btn func" id="shift-btn" onclick="toggleShift()">Shift</button>
+                <button type="button" class="btn func" onclick="handleInput('x²(')">x²</button>
+                <button type="button" class="btn func" onclick="handleInput('sqrt(')">√</button>
+                <button type="button" class="btn func" onclick="togglePower()">on/off</button>
+
+                <button type="button" class="btn func" onclick="handleInput('sin(')">sin</button>
+
+                <div class="navigation-pad">
+                    <button type="button" onclick="navigate('up')">▲</button>
+                    <button type="button" onclick="navigate('left')">◀</button>
+                    <button type="button" onclick="navigate('center')">●</button>
+                    <button type="button" onclick="navigate('right')">▶</button>
+                    <button type="button" onclick="navigate('down')">▼</button>
+                </div>
+
+                <button type="button" class="btn func" onclick="handleInput('tan(')">tan</button>
+
+                <button type="button" class="btn func" onclick="handleInput('cos(')">cos</button>
+                <button type="button" class="btn func" onclick="handleInput('log(')">log</button>
+
+                <button type="button" class="btn num" onclick="handleInput('7')">7</button>
+                <button type="button" class="btn num" onclick="handleInput('8')">8</button>
+                <button type="button" class="btn num" onclick="handleInput('9')">9</button>
+                <button type="button" class="btn func" onclick="handleInput(')')">( )</button>
+
+                <button type="button" class="btn num" onclick="handleInput('4')">4</button>
+                <button type="button" class="btn num" onclick="handleInput('5')">5</button>
+                <button type="button" class="btn num" onclick="handleInput('6')">6</button>
+                <button type="button" class="btn op"  onclick="handleInput('/')">÷</button>
+
+                <button type="button" class="btn num" onclick="handleInput('1')">1</button>
+                <button type="button" class="btn num" onclick="handleInput('2')">2</button>
+                <button type="button" class="btn num" onclick="handleInput('3')">3</button>
+                <button type="button" class="btn op"  onclick="handleInput('*')">×</button>
+
+                <button type="button" class="btn num" onclick="handleInput('0')">0</button>
+                <button type="button" class="btn num" onclick="handleInput('.')">.</button>
+                <button type="submit" class="btn op">=</button>
+                <button type="button" class="btn op"  onclick="handleInput('-')">-</button>
+
+                <button type="button" class="btn op plus-btn" onclick="handleInput('+')">+</button>
+                <button type="button" class="btn clear-btn" onclick="handleClear()">C</button>
+
+            </div>
+        </form>
+
+    </div>
+
+<script>
+    // State Variables
+    let isOn = true;
+    let shiftActive = false;
+
+    // Initialize with the value from Go as a properly escaped JavaScript string.
+    let currentExpression = {{ .Input | js }};
+    let cursorPosition = currentExpression.length;
+
+    // DOM Elements
+    const displayWindow = document.getElementById('display-window');
+    const expressionDisplay = document.getElementById('expression-display');
+    const resultDisplay = document.getElementById('result-display');
+    const hiddenInput = document.getElementById('hidden-expression');
+    const shiftLabel = document.getElementById('shift-label');
+    const shiftBtn = document.getElementById('shift-btn');
+    const form = document.getElementById('calc-form');
+
+    // Prevent submission if calculator is off
+    form.addEventListener('submit', function(e) {
+        if (!isOn) e.preventDefault();
+    });
+
+    // Render Function: Maps the string layout and appends a moving visual cursor tag
+    function renderDisplay() {
+        if (!isOn) {
+            expressionDisplay.innerHTML = '';
+            hiddenInput.value = '';
+            return;
+        }
+
+        // Segment text into left and right chunks around the cursor location
+        const leftChunk = currentExpression.slice(0, cursorPosition);
+        const rightChunk = currentExpression.slice(cursorPosition);
+
+        // Escape HTML entities safely
+        const safeLeft = escapeHtml(leftChunk);
+        const safeRight = escapeHtml(rightChunk);
+
+        expressionDisplay.innerHTML = `${safeLeft}<span class="cursor"></span>${safeRight}`;
+        hiddenInput.value = currentExpression;
+    }
+
+    function escapeHtml(text) {
+        return text
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
+    }
+
+    // Input Handling
+    function handleInput(val) {
+        if (!isOn) return;
+
+        // Insert character exactly where cursor sits
+        currentExpression =
+            currentExpression.slice(0, cursorPosition) +
+            val +
+            currentExpression.slice(cursorPosition);
+
+        cursorPosition += val.length;
+
+        deactivateShift();
+        renderDisplay();
+    }
+
+    // Directional Pad Processing
+    function navigate(direction) {
+        if (!isOn) return;
+
+        if (direction === 'left') {
+            if (cursorPosition > 0) cursorPosition--;
+        } else if (direction === 'right') {
+            if (cursorPosition < currentExpression.length) cursorPosition++;
+        } else if (direction === 'up' || direction === 'down') {
+            const backendResult = resultDisplay.textContent.trim();
+
+            if (backendResult) {
+                handleInput(backendResult);
+                return;
+            }
+        }
+
+        renderDisplay();
+    }
+
+    // Shift Modifier Toggle
+    function toggleShift() {
+        if (!isOn) return;
+
+        shiftActive = !shiftActive;
+
+        if (shiftActive) {
+            shiftLabel.style.display = 'block';
+            shiftBtn.classList.add('shift-active');
+        } else {
+            deactivateShift();
+        }
+    }
+
+    function deactivateShift() {
+        shiftActive = false;
+        shiftLabel.style.display = 'none';
+        shiftBtn.classList.remove('shift-active');
+    }
+
+    // Clear Logic
+    function handleClear() {
+        if (!isOn) return;
+
+        if (shiftActive) {
+            currentExpression = '';
+            cursorPosition = 0;
+            deactivateShift();
+        } else {
+            if (cursorPosition > 0) {
+                currentExpression =
+                    currentExpression.slice(0, cursorPosition - 1) +
+                    currentExpression.slice(cursorPosition);
+
+                cursorPosition--;
+            }
+        }
+
+        renderDisplay();
+    }
+
+    // Power Toggle Switch
+    function togglePower() {
+        isOn = !isOn;
+
+        if (isOn) {
+            displayWindow.classList.add('power-on');
+            currentExpression = '';
+            cursorPosition = 0;
+        } else {
+            displayWindow.classList.remove('power-on');
+            currentExpression = '';
+            cursorPosition = 0;
+            deactivateShift();
+        }
+
+        renderDisplay();
+    }
+
+    // Initial load view setup
+    renderDisplay();
+</script>
+
+</body>
+</html>

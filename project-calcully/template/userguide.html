@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcully - User Guide</title>
+    <style>
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* Consistent light gradient background */
+            background: linear-gradient(180deg, #eef4f8 0%, #dbeafe 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: #1e293b;
+            padding: 30px 20px;
+            position: relative;
+        }
+
+        /* Seamless Math Formula Background Layer */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            mix-blend-mode: overlay; 
+            opacity: 0.12; 
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Guide Card Container */
+        .guide-card {
+            position: relative;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            max-width: 480px;
+            width: 100%;
+            padding: 35px 25px;
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* Header Navigation Back Link */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #1d4ed8;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            transition: transform 0.2s ease;
+        }
+
+        .back-link:hover {
+            transform: translateX(-3px);
+        }
+
+        /* Typography */
+        .title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #0f4c81;
+            margin-bottom: 25px;
+            letter-spacing: -0.5px;
+        }
+
+        /* Steps Layout List */
+        .steps-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .step-block {
+            background: rgba(255, 255, 255, 0.6);
+            padding: 16px 20px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.01);
+        }
+
+        .step-header {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .step-number {
+            background: #1d4ed8;
+            color: white;
+            font-size: 0.85rem;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+        }
+
+        .step-text {
+            font-size: 1rem;
+            color: #334155;
+            line-height: 1.5;
+        }
+
+        /* Styled Codes/Examples boxes */
+        .example-box {
+            background: #f1f5f9;
+            border-left: 4px solid #3b82f6;
+            padding: 10px 14px;
+            border-radius: 4px 8px 8px 4px;
+            margin-top: 10px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: 600;
+            color: #1e293b;
+            font-size: 0.95rem;
+        }
+
+        .func-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .func-item {
+            background: #f1f5f9;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #2563eb;
+            border: 1px solid #e2e8f0;
+        }
+
+        .key-badge {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-bottom-width: 3px;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-family: inherit;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .key-clear {
+            background: #ef4444;
+            color: white;
+            border: 1px solid #dc2626;
+            border-bottom-width: 3px;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-weight: 700;
+        }
+
+        /* Back to Dashboard Link Button */
+        .btn-home {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: #ffffff;
+            color: #1d4ed8;
+            border: 2px solid #1d4ed8;
+            font-size: 1.05rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-home:hover {
+            background: #1d4ed8;
+            color: white;
+            box-shadow: 0 4px 15px rgba(29, 78, 216, 0.2);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="guide-card">
+        <!-- Back Arrow Link to Homepage -->
+        <a href="home" class="back-link">← Back to Menu</a>
+
+        <!-- Main Title -->
+        <h1 class="title">How to Use Calcully</h1>
+
+        <!-- Steps Wrapper -->
+        <div class="steps-container">
+
+            <!-- Step 1 -->
+            <div class="step-block">
+                <div class="step-header">
+                    <span class="step-number">1</span>
+                    <span>Enter your expression</span>
+                </div>
+                <div class="step-text">Type out standard arithmetic using the keypads.</div>
+                <div class="example-box">2+3*4</div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-block">
+                <div class="step-header">
+                    <span class="step-number">2</span>
+                    <span>Scientific Functions</span>
+                </div>
+                <div class="step-text">Calcully supports advanced mathematics calculations smoothly:</div>
+                <div class="func-grid">
+                    <div class="func-item">sqrt(25)</div>
+                    <div class="func-item">sin(1.57)</div>
+                    <div class="func-item">cos(0)</div>
+                    <div class="func-item">tan(0.78)</div>
+                    <div class="func-item">log(100)</div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-block">
+                <div class="step-header">
+                    <span class="step-number">3</span>
+                    <span>Evaluate</span>
+                </div>
+                <div class="step-text">Press the <span class="key-badge">=</span> key to calculate your mathematical output instantly.</div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-block">
+                <div class="step-header">
+                    <span class="step-number">4</span>
+                    <span>Expression Navigation</span>
+                </div>
+                <div class="step-text">Use the built-in directional navigation buttons to scroll back or forward and easily edit inline expressions.</div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-block">
+                <div class="step-header">
+                    <span class="step-number">5</span>
+                    <span>Reset Screen</span>
+                </div>
+                <div class="step-text">Press the <span class="key-clear">C</span> button at any time to clear your workspace fully.</div>
+            </div>
+
+        </div>
+
+        <!-- Secondary Bottom Return Button -->
+        <a href="home" class="btn-home">Got It!</a>
+    </div>
+
+</body>
+</html>

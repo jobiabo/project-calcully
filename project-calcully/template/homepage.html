@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcully - Home</title>
+    <style>
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* Same base light gradient as the splash page */
+            background: linear-gradient(180deg, #eef4f8 0%, #dbeafe 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: #1e293b;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Same Mathematical Formula Background Layer */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            mix-blend-mode: overlay; 
+            opacity: 0.12; 
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Main Dashboard Container */
+        .home-card {
+            position: relative;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            max-width: 440px;
+            width: 100%;
+            padding: 40px 30px;
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
+            text-align: center;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        /* Header Section */
+        .brand-name {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #0f4c81; /* Brand Blue */
+            letter-spacing: -1px;
+            margin-bottom: 4px;
+        }
+
+        .app-subtitle {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        /* Tagline Row */
+        .tagline-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .tag {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1d4ed8;
+            background: rgba(30, 64, 175, 0.06);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .dot {
+            width: 5px;
+            height: 5px;
+            background-color: #94a3b8;
+            border-radius: 50%;
+        }
+
+        /* Prominent Hero CTA Button */
+        .btn-start {
+            display: inline-block;
+            width: 100%;
+            padding: 18px 30px;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(29, 78, 216, 0.35);
+            transition: all 0.3s ease;
+            margin-bottom: 35px;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-start:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(29, 78, 216, 0.45);
+        }
+
+        .btn-start:active {
+            transform: translateY(-1px);
+        }
+
+        /* Divider */
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #cbd5e1 50%, transparent);
+            margin-bottom: 25px;
+        }
+
+        /* Navigation / Secondary Menu Links */
+        .menu-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 35px;
+        }
+
+        .menu-item a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px;
+            color: #334155;
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 12px;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .menu-item a:hover {
+            background: #ffffff;
+            color: #1d4ed8;
+            transform: translateX(3px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        /* Footer / Version Info */
+        .footer-version {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        /* Animations */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="home-card">
+        <h1 class="brand-name">Calcully</h1>
+        <p class="app-subtitle">Scientific Calculator</p>
+
+        <div class="tagline-container">
+            <span class="tag">Fast</span>
+            <div class="dot"></div>
+            <span class="tag">Accurate</span>
+            <div class="dot"></div>
+            <span class="tag">Offline</span>
+        </div>
+
+        <a href="calculator" class="btn-start">Start Calculator</a>
+
+        <div class="divider"></div>
+
+        <ul class="menu-list">
+            <li class="menu-item">
+                <a href="userguide">
+                    <span class="icon">📖</span> User Guide
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="features">
+                    <span class="icon">✨</span> Features
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="about">
+                    <span class="icon">👨‍💻</span> About Developer
+                </a>
+            </li>
+        </ul>
+
+        <div class="footer-version">VERSION 1.0</div>
+    </div>
+
+</body>
+</html>

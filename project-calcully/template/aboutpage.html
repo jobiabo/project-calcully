@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Calcully</title>
+    <style>
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* Consistent light gradient background */
+            background: linear-gradient(180deg, #eef4f8 0%, #dbeafe 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: #1e293b;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        /* Seamless Math Formula Background Layer */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            mix-blend-mode: overlay; 
+            opacity: 0.12; 
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* About Card Container */
+        .about-card {
+            position: relative;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            max-width: 520px;
+            width: 100%;
+            padding: 35px 25px;
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* Navigation Top Link */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #1d4ed8;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+            transition: transform 0.2s ease;
+        }
+
+        .back-link:hover {
+            transform: translateX(-3px);
+        }
+
+        /* Typography */
+        .main-title {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: #0f4c81;
+            margin-bottom: 25px;
+            letter-spacing: -0.5px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 12px;
+            border-bottom: 2px solid rgba(29, 78, 216, 0.1);
+            padding-bottom: 6px;
+        }
+
+        .content-box {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        p {
+            font-size: 1rem;
+            color: #334155;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Profile Layout for Developer Section */
+        .dev-profile {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 480px) {
+            .dev-profile {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        .profile-frame {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 3px solid #1d4ed8;
+            box-shadow: 0 4px 12px rgba(29, 78, 216, 0.15);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .dev-intro h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 2px;
+        }
+
+        .dev-intro .tagline {
+            font-size: 0.9rem;
+            color: #2563eb;
+            font-weight: 600;
+        }
+
+        /* Tech Badges */
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .tech-badge {
+            background: #f1f5f9;
+            color: #475569;
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* Return Action Button */
+        .btn-home {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: #ffffff;
+            color: #1d4ed8;
+            border: 2px solid #1d4ed8;
+            font-size: 1.05rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 14px;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .btn-home:hover {
+            background: #1d4ed8;
+            color: white;
+            box-shadow: 0 4px 15px rgba(29, 78, 216, 0.2);
+        }
+
+        .version-tag {
+            display: block;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #94a3b8;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="about-card">
+        <!-- Back Link -->
+        <a href="home" class="back-link">← Back to Menu</a>
+
+        <!-- Page Main Heading -->
+        <h1 class="main-title">About Calcully</h1>
+
+        <!-- Section 1: The Application Context -->
+        <div class="content-box">
+            <h2 class="section-title">The Application</h2>
+            <p>Calcully was conceptualized and built to provide students with a fast, ultra-lightweight scientific calculator engine that functions flawlessly both online and offline.</p>
+            <p>Designed with efficiency in mind, it aims to deliver immediate computational processing results clean from cluttered interface environments.</p>
+        </div>
+
+        <!-- Section 2: The Person Behind It -->
+        <div class="content-box">
+            <h2 class="section-title">Developer</h2>
+            
+            <div class="dev-profile">
+                <!-- Circular Small Avatar Block -->
+                <div class="profile-frame">
+                    <!-- ⬇️ INPUT YOUR PICTURE LINK DIRECTLY IN THE 'src' ATTRIBUTE BELOW ⬇️ -->
+                    <img src="/static/IMG_9139.JPG" alt="Joel Obiabo" class="profile-img">
+                </div>
+                <div class="dev-intro">
+                    <h3>Joel Obiabo</h3>
+                    <p class="tagline">Software Developer & Student at 01</p>
+                </div>
+            </div>
+
+            <p>Hello! I am a software engineer focused on building useful tools for educational spaces. Thank you so much for using Calcully to solve your equations! Your support means everything.</p>
+            
+            <!-- Technologies Summary Block -->
+            <div class="tech-stack">
+                <span class="tech-badge">HTML5</span>
+                <span class="tech-badge">CSS3</span>
+                <span class="tech-badge">JavaScript</span>
+                <span class="tech-badge">Go Lang</span>
+            </div>
+        </div>
+
+        <!-- Back Home Action Element -->
+        <a href="home" class="btn-home">Back to Menu</a>
+
+        <!-- System Version Identity -->
+        <span class="version-tag">Version 1.0</span>
+    </div>
+
+</body>
+</html>
