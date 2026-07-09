@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calcully - Features</title>
+    <link rel="manifest" href="/static/manifest.json">
+    <!-- Theme color matching your signature vibrant blue -->
+    <meta name="theme-color" content="#1d4ed8">
     <style>
         /* Reset & Base Styles */
         * {
@@ -272,6 +275,19 @@
         <!-- Back to Main Button -->
         <a href="home" class="btn-home">Back to Menu</Main></a>
     </div>
+
+    <script>
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", async () => {
+        try {
+            const registration = await navigator.serviceWorker.register("/static/service-worker.js");
+            console.log("Service Worker registered successfully:", registration.scope);
+        } catch (error) {
+            console.error("Service Worker registration failed:", error);
+        }
+    });
+}
+</script>
 
 </body>
 </html>

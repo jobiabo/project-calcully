@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calcully - Splash Screen</title>
+    <link rel="manifest" href="/static/manifest.json">
+    <!-- Theme color matching your signature vibrant blue -->
+<meta name="theme-color" content="#1d4ed8">
     <style>
         /* Reset & Base Styles */
         * {
@@ -182,7 +185,7 @@
         <h1 class="app-title">Calcully</h1>
 
         <div class="profile-container">
-           <img src="/static/IMG_9139.JPG" alt="Joel Obiabo" class="profile-img">
+           <img src="/static/images/IMG_9139.JPG" alt="Joel Obiabo" class="profile-img">
         </div>
 
         <div class="app-accent-badge">C⁺</div>
@@ -204,6 +207,19 @@
             window.location.href = '/home'; 
         }, 7000); 
     </script>
+
+    <script>
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", async () => {
+        try {
+            const registration = await navigator.serviceWorker.register("/static/service-worker.js");
+            console.log("Service Worker registered successfully:", registration.scope);
+        } catch (error) {
+            console.error("Service Worker registration failed:", error);
+        }
+    });
+}
+</script>
 
 </body>
 </html>
