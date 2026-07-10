@@ -18,6 +18,9 @@ func main() {
 	http.HandleFunc("/userguide", handler.UserGuide)
 	http.HandleFunc("/about", handler.AboutHandler)
 	http.HandleFunc("/features", handler.FeatureHandlers)
+	http.HandleFunc("/service-worker.js", func(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "service-worker.js")
+	})
 
 	log.Println("server running at http://localhost:9000")
 	// http.ListenAndServe(":9000", mux)

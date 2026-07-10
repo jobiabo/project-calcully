@@ -2,7 +2,7 @@ package handler
 
 import (
 	"net/http"
-	"text/template"
+	"html/template"
 )
 
 var templa = template.Must(template.ParseFiles("template/aboutpage.html"))
