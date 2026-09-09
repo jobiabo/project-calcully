@@ -8,13 +8,13 @@ Calcully was designed to provide students, developers, and everyday users with a
 
 ## 📸 Preview
 
-> ![Description of image](assets/splashpage.png)
-> ![Description of image](assets/homepage.png)
-> ![Description of image](assets/userguide.png)
-> ![Description of image](features.png)
-> ![Description of image](assets/check1.png)
-> ![Description of image](assets/check2.png)
-> ![Description of image](assets/devops.png)
+> ![splashpage](assets/splashpage.png)
+> ![homepage](assets/homepage.png)
+> ![user guide](assets/userguide.png)
+> ![features](features.png)
+> ![check1](assets/check1.png)
+> ![check2](assets/check2.png)
+> ![devops](assets/devops.png)
 
 
 
