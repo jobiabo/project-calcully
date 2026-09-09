@@ -8,7 +8,21 @@ Calcully was designed to provide students, developers, and everyday users with a
 
 ## 📸 Preview
 
-> *(Add screenshots of your Splash Screen, Home Page, and Calculator interface here.)*
+> ![Description of image](assets/splashpage.png)
+> ![Description of image](assets/homepage.png)
+> ![Description of image](assets/userguide.png)
+> ![Description of image](features.png)
+> ![Description of image](assets/check1.png)
+> ![Description of image](assets/check2.png)
+> ![Description of image](assets/devops.png)
+
+
+
+
+
+
+
+
 
 ---
 
